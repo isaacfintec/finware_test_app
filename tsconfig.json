@@ -9,7 +9,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "strict": false,
-    "types": ["node", "mocha", "chai", "express", "reflect-metadata"],
+    "types": ["node", "mocha", "chai", "express"],
     "baseUrl": "./",
     "sourceMap": true
   },
