@@ -1,25 +1,29 @@
 import path from 'path';
 import express from 'express';
-import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import helmet from 'helmet';
-import globalErrorshandler from './core/globalErrorHandler';
+import logger from 'pino-http';
 
+import globalErrorshandler from './core/globalErrorHandler';
+// import router from './router';
 // import './core/config';
 // import './core/db';
 
-// import router from './router';
 
 const app = express();
-app.use(logger('combined'));
+app.use(logger());
 app.use(helmet());
 app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(process.cwd(), 'public')));
-// app.use('/', router);
+
+app.use('/', (req, reply, next) => {
+  req.log.info('something');
+  reply.status(200).json({ reply: 'Ok' });
+});
 
 app.use((_req, res, _next) => {
   res.status(404).send('Página no encontrada');
