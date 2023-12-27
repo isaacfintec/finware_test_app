@@ -4,7 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf ./lib",
+    "build": "npx tsc --project tsconfig.json",
+    "lint": "eslint --ext .ts .",
+    "preversion": "npm-run-all clean build lint",
+    "postinstall": "npm run preversion",
+    "http": "node lib/www/http.js | pino-pretty",
+    "start": "npm run http",
+    "test": "mocha --file lib/core/test/setup.js --file lib/core/test/teardown.js -r ts-node/register src/**/*.spec.ts",
+    "test:dev": "env NODE_ENV=test nodemon --watch . --ext ts --exec npm test"
   },
   "keywords": [],
   "author": "",
