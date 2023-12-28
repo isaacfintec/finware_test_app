@@ -54,6 +54,7 @@
     "pg-hstore": "2.3.4",
     "pino-http": "^8.6.1",
     "sequelize": "6.35.2",
-    "sqlite3": "5.1.6"
+    "sqlite3": "5.1.6",
+    "tsyringe": "^4.8.0"
   }
 }
