@@ -8,8 +8,6 @@ import logger from 'pino-http';
 import globalErrorshandler from './core/globalErrorHandler';
 // import router from './router';
 // import './core/config';
-// import './core/db';
-
 
 const app = express();
 app.use(logger());
