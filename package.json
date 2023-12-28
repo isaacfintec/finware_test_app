@@ -13,8 +13,8 @@
     "postinstall": "npm run transpile",
     "http": "node lib/www/http.js | pino-pretty",
     "start": "npm run http",
-    "test": "mocha --file lib/core/test/setup.js --file lib/core/test/teardown.js -r ts-node/register src/**/*.spec.ts",
-    "test:dev": "env NODE_ENV=test nodemon --watch . --ext ts --exec npm test"
+    "test": "env NODE_ENV=test mocha -r ts-node/register src/**/*.spec.ts",
+    "test:dev": "nodemon --watch . --ext ts --exec npm test"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +36,7 @@
     "pino-pretty": "^10.3.1",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
+    "sequelize-cli": "6.6.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "5.3.3"
@@ -47,6 +48,8 @@
     "helmet": "7.1.0",
     "http-status-codes": "2.3.0",
     "morgan": "1.10.0",
-    "pino-http": "^8.6.1"
+    "pino-http": "^8.6.1",
+    "sequelize": "6.35.2",
+    "sqlite3": "5.1.6"
   }
 }
