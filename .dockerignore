@@ -1,0 +1,35 @@
+# Node
+node_modules
+npm-debug.log
+
+# Sistem
+.DS_Store
+
+# Enviroment
+.env
+
+# Git
+.git
+.gitignore
+
+# Vercel
+vercel.json
+.vercel
+public
+
+# Files
+*.xls
+*.xlsx
+*.TXT
+*.csv
+README.md
+Procfile
+
+# Builds
+lib
+build
+dist
+out
+
+# Vscode
+.vscode
