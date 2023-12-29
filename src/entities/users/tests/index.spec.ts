@@ -10,7 +10,7 @@ const should = chai.should();
 
 describe('@Users', () => {
   const BASE_URL = '/api/v1/user';
-  const userProps: Omit<IUserInsert, 'createdAt' | 'updatedAt' | 'id'> = {
+  const userMock: Omit<IUserInsert, 'createdAt' | 'updatedAt' | 'id'> = {
     username: 'Alan Mathison Turing',
     email: 'alan_m_t@example.com',
     password: 'jdkslkew',
@@ -23,7 +23,7 @@ describe('@Users', () => {
   });
 
   it('@Create: should create new user', async () => {
-    const response = await chai.request(app).post(`${BASE_URL}/singup`).send(userProps);
+    const response = await chai.request(app).post(`${BASE_URL}/singup`).send(userMock);
     response.should.have.status(200);
     const body = response.body;
     expect(body).to.have.property('username');
@@ -32,14 +32,15 @@ describe('@Users', () => {
     expect(body).to.have.property('birthdate');
     expect(body).not.have.property('password');
 
-    expect(body.username).to.be.equal(userProps.username);
-    expect(body.email).to.be.equal(userProps.email);
-    expect(body.postaladdress).to.be.equal(userProps.postaladdress);
-    expect(body.birthdate).to.be.equal(userProps.birthdate);
+    expect(body.username).to.be.equal(userMock.username);
+    expect(body.email).to.be.equal(userMock.email);
+    expect(body.postaladdress).to.be.equal(userMock.postaladdress);
+    expect(body.birthdate).to.be.equal(userMock.birthdate);
   });
 
   it('@LOGIN: should login a user', async () => {
-    const response = await chai.request(app).post(`${BASE_URL}/login`).send(userProps);
+    const { email, password } = userMock;
+    const response = await chai.request(app).post(`${BASE_URL}/login`).send({ email, password });
     response.should.have.status(200);
 
     const body = response.body;

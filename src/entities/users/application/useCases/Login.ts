@@ -7,9 +7,8 @@ export type LoginProps = Pick<IUserInsert, 'email'> & Pick<IUserInsert, 'passwor
 
 class Login {
   async validateUser(props: LoginProps) {
-    const repository = new UserRepository();
     const { email, password } = props;
-    const user = await repository.findOne({ email });
+    const user = await UserRepository.findOne({ email });
     /** validatePswd returns a fatal error if the comparison of values fails. */
     validatePswd(password, user.password);
     return user;
