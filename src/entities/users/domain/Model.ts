@@ -1,10 +1,10 @@
-import { Model, DataTypes, CreationOptional, InferAttributes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 
 import SequelizeInstance from '../../../core/db/index';
 import { encrypt } from '../../../core/helpers/bcrypt';
 import { IUserInsert, UserOptionalAtr } from './Interface';
 
-class User extends Model<IUserInsert, UserOptionalAtr> {
+class Users extends Model<IUserInsert, UserOptionalAtr> {
   declare id: number;
   declare username: string;
   declare email: string;
@@ -15,7 +15,7 @@ class User extends Model<IUserInsert, UserOptionalAtr> {
   declare updatedAt: Date;
 }
 
-User.init(
+Users.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -53,9 +53,16 @@ User.init(
     updatedAt: DataTypes.DATE,
   },
   {
-    sequelize: SequelizeInstance().sequelize,
-    tableName: 'users',
+    sequelize: SequelizeInstance().connect(),
+    tableName: 'Users',
+    defaultScope: {
+      attributes: { exclude: ['password'] },
+    },
   },
 );
 
-export default User;
+Users.sync().then(() => {
+  console.log('Tabla Users sincronizada correctamente');
+});
+
+export default Users;

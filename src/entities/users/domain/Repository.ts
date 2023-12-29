@@ -1,11 +1,7 @@
-import { autoInjectable } from 'tsyringe';
+import Repository from '../../../core/helpers/Repository';
 import UserModel from './Model';
 
-@autoInjectable()
-export default class Repository {
-  constructor(private model: UserModel) {}
-  create<P>(args: P) {
-    const self = this;
-    const result = self.model.create();
-  }
-}
+class UserRepository extends Repository<UserModel> {}
+const userRepository = new UserRepository();
+userRepository.setModel(UserModel);
+export default userRepository;

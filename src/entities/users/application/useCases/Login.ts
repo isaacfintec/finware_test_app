@@ -1,23 +1,21 @@
 import { SignJWT } from 'jose';
-// import UserModel from '@/core/entities/users/domain/Model';
-// import { CustomError } from '@core/helpers/customErrors';
-// import { IUserDoc } from '../../domain/Interface';
 import { validatePswd } from '../../../../core/helpers/bcrypt';
+import UserRepository from '../../domain/Repository';
+import { IUserInsert } from '../../domain/Interface';
 
-export type LoginProps = { email: string; password: string };
+export type LoginProps = Pick<IUserInsert, 'email'> & Pick<IUserInsert, 'password'>;
 
 class Login {
-  async getUser(props: LoginProps) {
+  async validateUser(props: LoginProps) {
+    const repository = new UserRepository();
     const { email, password } = props;
-    // const user: IUserDoc | null = await UserModel.findOne({ email }).select('+password').lean();
-    // if (!user) throw new CustomError(400, 'Invalid credentials');
-    const user = { password: '', sid: '1234' };
-
-    validatePswd(password, password);
+    const user = await repository.findOne({ email });
+    /** validatePswd returns a fatal error if the comparison of values fails. */
+    validatePswd(password, user.password);
     return user;
   }
 
-  async getToken(userId: string): Promise<string> {
+  async getToken(userId: number): Promise<string> {
     const { JWT_KEY } = process.env;
     const secret = new TextEncoder().encode(JWT_KEY);
     const token = await new SignJWT({
@@ -32,8 +30,8 @@ class Login {
 
   async exec(props: LoginProps): Promise<string> {
     const self = this;
-    const user = await self.getUser(props);
-    const token = await self.getToken(user.sid);
+    const user = await self.validateUser(props);
+    const token = await self.getToken(user.id);
     return token;
   }
 }
