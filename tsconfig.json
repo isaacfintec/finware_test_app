@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "target": "ES2018",
+    "module": "CommonJS",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "strict": false,
+    "types": ["node", "mocha", "chai", "express"],
+    "baseUrl": "./",
+    "sourceMap": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "node_modules", "lib"]
+}
