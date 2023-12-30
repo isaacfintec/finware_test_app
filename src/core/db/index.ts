@@ -20,6 +20,7 @@ class SequelizeConnection {
     const testEnvironment = isTestEnvironment();
 
     if (self.sequelize) return self.sequelize;
+    console.log('Sequelize connection');
 
     if (testEnvironment) {
       self.sequelize = new Sequelize('sqlite::memory:', { logging: false });
@@ -28,7 +29,7 @@ class SequelizeConnection {
         logging: false,
       });
     }
-    return self;
+    return self.sequelize;
   }
 
   async init() {
