@@ -8,18 +8,12 @@ interface IRoutes {
 
 export default class RoutesGen {
   static exec(routes: IRoutes[]): Express {
-    try {
-      const router = Router();
-
-      for (const route of routes) {
-        const { method, path, handlers } = route;
-        router[method](path, handlers);
-      }
-
-      return router;
-    } catch (error) {
-      throw error;
+    const router = Router();
+    for (const route of routes) {
+      const { method, path, handlers } = route;
+      router[method](path, handlers);
     }
+    return router;
   }
 
   static generateRoutes(routes): Express {

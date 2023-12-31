@@ -1,6 +1,7 @@
 import HTTP_STATUS_CODES from 'http-status-codes';
-import { CustomError } from './helpers';
-import { Request, Response } from 'express';
+import { CustomError } from '.';
+import { NextFunction, Request, Response } from 'express';
+import { error } from 'console';
 
 const getResponse = (type: string, message: string, status?: number) => ({
   status,
@@ -22,9 +23,13 @@ const evalueError = (err: Error) => {
   return handler();
 };
 
-const globalErrorHandler = (err: Error, _req: Request, res: Response) => {
-  const { status, error } = evalueError(err);
-  return res.status(status).json({ errors: [error] });
+const globalErrorHandler = (err: Error, _req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { status, error } = evalueError(err);
+    return res.status(status).json({ errors: [error] });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export default globalErrorHandler;
