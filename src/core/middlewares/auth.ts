@@ -1,7 +1,6 @@
 import { expressjwt } from 'express-jwt';
 
 const { JWT_SECRET } = process.env;
-console.log(JWT_SECRET);
 
 export const getTokenFromHeaders = (req) => {
   const {

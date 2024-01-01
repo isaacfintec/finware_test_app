@@ -9,4 +9,14 @@ export interface IRepository<T extends Model> {
   findAll(options?: FindOptions): Promise<any[]>;
 }
 
-export type TExpressHandler = (req: Request, reply: Response, next: NextFunction) => void;
+interface IAuth {
+  auth: {
+    user: number;
+    iat: number;
+    exp: number;
+  };
+}
+
+export type RequesAuth = IAuth & Request;
+
+export type TExpressHandler = (req: RequesAuth, reply: Response, next: NextFunction) => void;

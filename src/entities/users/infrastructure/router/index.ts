@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 import RoutesGen from '../../../../core/helpers/RoutesGen';
-import routes from './routes';
+import { optionalRoutes, signRoutes } from './routes';
 
-const router = RoutesGen.generateRoutes(routes);
+const optional = RoutesGen.generateRoutes(optionalRoutes);
+const sing = RoutesGen.generateRoutes(signRoutes);
 
-export default router;
+export default { optional, sing };

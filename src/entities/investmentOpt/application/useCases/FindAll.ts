@@ -21,7 +21,7 @@ class FindAll {
       ...(industry ? { industry } : {}),
       ...(id ? { id } : {}),
     };
-    const queryOptions = { where, limit };
+    const queryOptions = { where, limit, raw: true };
     return queryOptions;
   }
 

@@ -1,10 +1,9 @@
-import globalErrorHandler from '../../../../core/helpers/globalErrorHandler';
-import { createCtrl, loginCtrl } from '../controllers';
+import { createCtrl, loginCtrl, userMeCtrl } from '../controllers';
 import { createV } from './validators';
 
 const createValidator = createV();
 
-const routes = [
+export const optionalRoutes = [
   {
     path: '/singup',
     method: 'post',
@@ -17,4 +16,10 @@ const routes = [
   },
 ];
 
-export default routes;
+export const signRoutes = [
+  {
+    path: '/me',
+    method: 'get',
+    handlers: [userMeCtrl],
+  },
+];

@@ -4,7 +4,7 @@ import SequelizeInstance from '../../../core/db/index';
 import { IInvestmentOpt, InvestmentOptAtr } from './Interface';
 import schema from './Schema';
 
-class InvestmentOptModel extends Model<IInvestmentOpt, InvestmentOptAtr> {
+class InvestmentOpt extends Model<IInvestmentOpt, InvestmentOptAtr> {
   declare id: number;
   declare name: string;
   declare totalAmount: number;
@@ -18,9 +18,9 @@ class InvestmentOptModel extends Model<IInvestmentOpt, InvestmentOptAtr> {
   declare updatedAt: Date;
 }
 
-InvestmentOptModel.init(schema, {
+InvestmentOpt.init(schema, {
   sequelize: SequelizeInstance().connect(),
   tableName: 'InvestmentOpt',
 });
 
-export default InvestmentOptModel;
+export default InvestmentOpt;

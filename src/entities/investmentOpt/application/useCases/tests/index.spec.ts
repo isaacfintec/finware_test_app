@@ -8,7 +8,7 @@ import SpamUseCase from '../Spam';
 chai.use(chaiHttp);
 const should = chai.should();
 
-describe('@InvestmentOptions: UseCases', () => {
+describe('@InvestmentOpt: UseCases', () => {
   before(async () => {
     await SequelizeInstance().init();
   });

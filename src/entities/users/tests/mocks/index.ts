@@ -1,6 +1,7 @@
 import getToken from '../../application/helpers/getToken';
 import Create from '../../application/useCases/Create';
 import { IUser, IUserInsert } from '../../domain/Interface';
+import { IWallet } from '../../../../entities/wallet/domain/Interface';
 
 export const userMock: Partial<IUserInsert> = {
   username: 'Alan Mathison Turing',
@@ -16,8 +17,8 @@ delete failMock.email;
 export const createMockUser = async (mockUserProps?: Partial<IUserInsert>) => {
   const createUseCase = new Create();
   const mock = { ...userMock, mockUserProps };
-  const user = await createUseCase.exec(mock as IUserInsert);
+  const { user, wallet } = await createUseCase.exec(mock as IUserInsert);
   const token = await getToken('user', user.id);
-  const singUser: IUser & { token: string } = { ...user, token };
+  const singUser: IUser & { token: string; wallet: IWallet } = { ...user, token, wallet };
   return singUser;
 };
