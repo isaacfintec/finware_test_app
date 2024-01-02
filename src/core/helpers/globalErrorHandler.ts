@@ -1,35 +1,32 @@
 import HTTP_STATUS_CODES from 'http-status-codes';
 import { CustomError } from '.';
 import { NextFunction, Request, Response } from 'express';
-import { error } from 'console';
 
-const getResponse = (type: string, message: string, status?: number) => ({
+export const getResponse = (type: string, message: string, status?: number) => ({
   status,
-  error: new CustomError(type, message),
+  error: new CustomError(status, `${type} ${message}`),
 });
 
-const evalueError = (err: Error) => {
+export const evalueError = (err: Error) => {
   const instance = err.constructor.name;
   const type = err.name;
-  const { message, code = HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR } = <CustomError>err;
+  const { message, code, status } = <CustomError & { status: number }>err;
+  const customCode = code || status || HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR;
 
   const errorHandlers = {
     CastError: () => getResponse(type, message, HTTP_STATUS_CODES.BAD_REQUEST),
     ValidationError: () => getResponse(type, message, HTTP_STATUS_CODES.BAD_REQUEST),
-    default: () => getResponse(type, message, code),
+    UnauthorizedError: () => getResponse(type, message, HTTP_STATUS_CODES.UNAUTHORIZED),
+    default: () => getResponse(type, message, customCode),
   };
 
-  const handler = errorHandlers[instance] || errorHandlers.default;
+  const handler = errorHandlers[instance] || errorHandlers[type] || errorHandlers.default;
   return handler();
 };
 
-const globalErrorHandler = (err: Error, _req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { status, error } = evalueError(err);
-    return res.status(status).json({ errors: [error] });
-  } catch (error) {
-    next(error);
-  }
-};
+function globalErrorHandler(err: Error, _req: Request, reply: Response, _next: NextFunction) {
+  const { status, error } = evalueError(err);
+  return reply.status(status).json({ errors: [error.message] });
+}
 
 export default globalErrorHandler;

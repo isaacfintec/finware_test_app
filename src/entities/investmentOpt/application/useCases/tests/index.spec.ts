@@ -6,7 +6,6 @@ import { InvestmentOptAtr } from '../../../domain/Interface';
 import SpamUseCase from '../Spam';
 
 chai.use(chaiHttp);
-const should = chai.should();
 
 describe('@InvestmentOpt: UseCases', () => {
   before(async () => {

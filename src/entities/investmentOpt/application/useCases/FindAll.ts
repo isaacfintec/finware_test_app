@@ -1,5 +1,5 @@
 import InvestmentOptRepo from '../../domain/Repository';
-import { InvestmentOptAtr, IInvestmentOpt } from '../../domain/Interface';
+import { IInvestmentOpt } from '../../domain/Interface';
 import InvestmentOptModel from '../../domain/Model';
 import { FindOptions } from 'sequelize';
 

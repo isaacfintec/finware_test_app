@@ -3,6 +3,7 @@ import { InvestmentOptionalAtr } from '../../domain/Interface';
 
 class Create {
   async doOperation(props: InvestmentOptionalAtr): Promise<InvestmentOptionalAtr> {
+    props.initialAmount = +props.initialAmount;
     props.balance = props.initialAmount;
     const doc = await InvestmentOptRepo.create<InvestmentOptionalAtr>(props);
     const docPOJO = doc.get({ plain: true });

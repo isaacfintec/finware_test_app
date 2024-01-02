@@ -1,4 +1,3 @@
-import globalErrorHandler from '../../../../core/helpers/globalErrorHandler';
 import { findAllCtrl } from '../controllers';
 import { searchV } from './validators';
 

@@ -3,20 +3,21 @@ import chaiHttp from 'chai-http';
 
 import app from '../../../app';
 import SequelizeInstance from '../../../core/db/index';
-import { failMock, userMock } from './mocks';
+import { failMock, getUserMock } from './mocks';
 
 chai.use(chaiHttp);
-const should = chai.should();
+chai.should();
 
 describe('@Users: API', () => {
   const BASE_URL = '/api/v1/';
+  const userMock = getUserMock();
   before(async () => {
     await SequelizeInstance().init();
   });
 
   describe('@Create', () => {
     it('@SUCCESS: should create new user', async () => {
-      const response = await chai.request(app).post(`${BASE_URL}/auth/singup`).send(userMock);
+      const response = await chai.request(app).post(`${BASE_URL}/auth/signup`).send(userMock);
       response.should.have.status(200);
       const { body } = response;
       const { user, wallet } = body;
@@ -38,8 +39,8 @@ describe('@Users: API', () => {
       expect(wallet.UserId).to.be.equal(user.id);
     });
 
-    it('@FAIL: should fail when create a new user', async () => {
-      const response = await chai.request(app).post(`${BASE_URL}/auth/singup`).send(failMock);
+    it('@FAIL: not email', async () => {
+      const response = await chai.request(app).post(`${BASE_URL}/auth/signup`).send(failMock);
       response.should.have.status(400);
       const { body } = response;
       expect(body).to.have.property('errors');
@@ -47,6 +48,15 @@ describe('@Users: API', () => {
       expect(target).to.have.property('path');
       expect(target).to.have.property('path');
       expect(target.path).to.be.equal('email');
+    });
+
+    it('@FAIL: user exist', async () => {
+      const response = await chai.request(app).post(`${BASE_URL}/auth/signup`).send(userMock);
+      response.should.have.status(400);
+      const { body } = response;
+      expect(body).to.have.property('errors');
+      const message = body.errors[0];
+      expect(message).to.be.equal('Error Unable to process: invalid email');
     });
   });
 
@@ -77,9 +87,8 @@ describe('@Users: API', () => {
 
       expect(error).not.be.false;
       expect(body).to.have.property('errors');
-      const target = body.errors[0];
-      expect(target).to.have.property('message');
-      expect(target.message).to.be.equal('Unable to process: Credentials could not be verified.');
+      const message = body.errors[0];
+      expect(message).to.be.equal('Error Unable to process: Credentials could not be verified.');
     });
   });
 

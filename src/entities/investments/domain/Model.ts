@@ -20,9 +20,11 @@ class InvestmentModel extends Model<IInvestment, InvestmentOptionalAtr> {
 
   async liquidate(): Promise<InvestmentModel> {
     this.status = STATUS.Retirado;
-    const amount = this.balance;
+    console.log(this.balance);
+    const amount = +this.balance;
     this.balance = 0;
     const wallet = await WalletModel.findByPk(this.WalletId);
+    console.log(wallet.balance);
     if (wallet) {
       wallet.balance += amount;
       await wallet.save();
@@ -39,7 +41,7 @@ InvestmentModel.init(schema, {
 
 InvestmentModel.belongsTo(InvestmentOpt);
 
-InvestmentModel.beforeCreate(async (investment, options) => {
+InvestmentModel.beforeCreate(async (investment, _options) => {
   const errorMessage = 'Unable to process: wallet or balance error';
   try {
     const wallet = await WalletModel.findByPk(investment.WalletId);

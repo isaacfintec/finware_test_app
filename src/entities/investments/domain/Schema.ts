@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 
-import { ALL_STATUS, STATUS } from '../application/constants';
+import { STATUS } from '../application/constants';
 
 export default {
   id: {
@@ -9,7 +9,7 @@ export default {
     primaryKey: true,
   },
   status: {
-    type: DataTypes.ENUM(...ALL_STATUS),
+    type: DataTypes.STRING(128),
     defaultValue: STATUS.Activo,
   },
   WalletId: {

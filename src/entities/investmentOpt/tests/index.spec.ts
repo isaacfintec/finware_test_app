@@ -6,7 +6,7 @@ import SequelizeInstance from '../../../core/db/index';
 import { createMockUser } from '../../users/tests/mocks';
 
 chai.use(chaiHttp);
-const should = chai.should();
+chai.should();
 
 describe('@InvestmentOpt: API', () => {
   const BASE_URL = '/api/v1/investmentOpt';

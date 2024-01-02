@@ -10,7 +10,6 @@ const CreateController: TExpressHandler = async (req, reply, next) => {
     const result = await createUseCase.exec(body);
     reply.status(STATUS_CODES.OK).json(result);
   } catch (error) {
-    console.log({ error });
     next(error);
   }
 };

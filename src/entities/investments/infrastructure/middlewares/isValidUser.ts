@@ -2,8 +2,6 @@ import { TExpressHandler } from '../../../../core/common/Interfaces';
 import UserMe from '../../../users/application/useCases/FindByPk';
 import FindAll from '../../application/useCases/FindAll';
 import { CustomError } from '../../../../core/helpers';
-import globalErrorHandler from '../../../../core/helpers/globalErrorHandler';
-import { Attributes } from 'sequelize';
 
 const isValidUserMiddleware: TExpressHandler = async (req, reply, next) => {
   const errorMessage = 'Unable to process: access denied';
@@ -24,7 +22,7 @@ const isValidUserMiddleware: TExpressHandler = async (req, reply, next) => {
     if (!isValid) throw new CustomError(401, errorMessage);
     return next();
   } catch (error) {
-    globalErrorHandler(error, req, reply, next);
+    next(error);
   }
 };
 

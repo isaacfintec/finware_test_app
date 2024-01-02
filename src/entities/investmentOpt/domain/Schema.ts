@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize';
 
-import { ALL_INDUSTRIES, ALL_RISKS, ALL_TERMS } from '../application/constants';
-
 export default {
   id: {
     type: DataTypes.INTEGER,
@@ -17,7 +15,7 @@ export default {
     allowNull: false,
   },
   industry: {
-    type: DataTypes.ENUM(...ALL_INDUSTRIES),
+    type: DataTypes.STRING(128),
     allowNull: false,
   },
   reateOfReturn: {
@@ -25,7 +23,7 @@ export default {
     allowNull: false,
   },
   termnType: {
-    type: DataTypes.ENUM(...ALL_TERMS),
+    type: DataTypes.STRING(128),
     allowNull: false,
   },
   term: {
@@ -37,7 +35,7 @@ export default {
     allowNull: false,
   },
   risk: {
-    type: DataTypes.ENUM(...ALL_RISKS),
+    type: DataTypes.STRING(128),
     allowNull: false,
   },
   createdAt: DataTypes.DATE,

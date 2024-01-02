@@ -18,16 +18,20 @@ class SequelizeConnection {
   connect() {
     const self = this;
     const testEnvironment = isTestEnvironment();
+    const options = {
+      logging: false,
+      dialectOptions: {
+        decimalNumbers: true,
+      },
+    };
 
     if (self.sequelize) return self.sequelize;
     console.log('Sequelize connection');
 
     if (testEnvironment) {
-      self.sequelize = new Sequelize('sqlite::memory:', { logging: false });
+      self.sequelize = new Sequelize('sqlite::memory:', options);
     } else {
-      self.sequelize = new Sequelize(process.env.DB_URL, {
-        logging: false,
-      });
+      self.sequelize = new Sequelize(process.env.DB_URL, options);
     }
     return self.sequelize;
   }

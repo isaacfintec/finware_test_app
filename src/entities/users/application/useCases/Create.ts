@@ -1,4 +1,3 @@
-import Users from '../../domain/Model';
 import UserRepository from '../../domain/Repository';
 import { IUser, IUserInsert } from '../../domain/Interface';
 import { IWallet } from 'src/entities/wallet/domain/Interface';

@@ -1,4 +1,5 @@
 import { validatePswd } from '../../../../core/helpers/bcrypt';
+import { CustomError } from '../../../../core/helpers';
 import UserRepository from '../../domain/Repository';
 import { IUserInsert } from '../../domain/Interface';
 import getToken from '../helpers/getToken';
@@ -13,6 +14,7 @@ class Login {
       attributes: { include: ['password'] },
       raw: true,
     });
+    if (!user) throw new CustomError(400, 'Unable to process: credentials error or not found');
     /** validatePswd returns a fatal error if the comparison of values fails. */
     validatePswd(password, user.password);
     return user;

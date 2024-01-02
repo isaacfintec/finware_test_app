@@ -12,6 +12,7 @@ services:
       - PORT=${PORT}
       - DB_URL=${DB_URL}
       - LOCAL_SECRET=${LOCAL_SECRET}
+      - JWT_SECRET=${JWT_SECRET}
     working_dir: /usr/src/app
     ports:
       - '${PORT}:${PORT}'
@@ -25,7 +26,7 @@ services:
       - POSTGRES_PASSWORD=pg5432
       - POSTGRES_DB=app
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:

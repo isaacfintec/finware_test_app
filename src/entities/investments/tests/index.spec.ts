@@ -8,7 +8,7 @@ import { IInvestment } from '../domain/Interface';
 import { STATUS } from '../application/constants';
 
 chai.use(chaiHttp);
-const should = chai.should();
+chai.should();
 
 describe('@Investment: API', () => {
   const BASE_URL = '/api/v1/investment';

@@ -1,7 +1,7 @@
-import InvestmentsOptModel from '../../domain/Model';
 import { Industries, Risks, TermsTypes, InvestmentOptAtr } from '../../domain/Interface';
 import { INDUSTRIES, RISKS, TERMS } from '../constants';
 import Create from './Create';
+import { faker } from '@faker-js/faker';
 
 class Spam {
   async operation(spam: InvestmentOptAtr): Promise<InvestmentOptAtr> {
@@ -24,38 +24,29 @@ class Spam {
   }
 
   getSpam() {
-    const spam: InvestmentOptAtr[] = [
-      {
-        name: 'Oportunidad 1',
-        totalAmount: 50000.0,
-        industry: INDUSTRIES.Agricultura as Industries,
-        term: 12,
-        termnType: TERMS.Mensual as TermsTypes,
-        reateOfReturn: 8,
-        location: 'Guadalajara, Jal, Mex.',
-        risk: RISKS.Alto as Risks,
-      },
-      {
-        name: 'Oportunidad 2',
-        totalAmount: 200000.0,
-        industry: INDUSTRIES.Energética as Industries,
-        term: 12,
-        termnType: TERMS.Mensual as TermsTypes,
-        reateOfReturn: 8,
-        location: 'Ciudad de México, CDMX, Mex.',
-        risk: RISKS.Medio as Risks,
-      },
-      {
-        name: 'Oportunidad 3',
-        totalAmount: 120000.0,
-        industry: INDUSTRIES.Iformatica as Industries,
-        term: 12,
-        termnType: TERMS.Mensual as TermsTypes,
-        reateOfReturn: 8,
-        location: 'Los Angeles, Cal, USA',
-        risk: RISKS.Bajo as Risks,
-      },
-    ];
+    const spam: InvestmentOptAtr[] = Array(10)
+      .fill(null)
+      .map((_v, index) => {
+        const industry = sort(
+          index,
+          INDUSTRIES.Agricultura,
+          INDUSTRIES.Energética,
+          INDUSTRIES.Iformatica,
+        );
+        const amount = sort(index, 65000.0, 280000.0, 120000.0);
+        const risk = sort(index, RISKS.Alto, RISKS.Medio, RISKS.Bajo);
+        return {
+          name: faker.company.name(),
+          totalAmount: amount as number,
+          industry: industry as Industries,
+          term: 12,
+          termnType: TERMS.Mensual as TermsTypes,
+          reateOfReturn: 8,
+          location: faker.location.streetAddress(),
+          risk: risk as Risks,
+        };
+      });
+
     return spam;
   }
 
@@ -68,3 +59,7 @@ class Spam {
 }
 
 export default Spam;
+
+function sort(target: number, optionA: unknown, optionB: unknown, optionC: unknown) {
+  return target <= 2 ? optionA : target <= 5 ? optionB : optionC;
+}
