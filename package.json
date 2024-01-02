@@ -13,7 +13,8 @@
     "postinstall": "npm run transpile",
     "http": "node lib/www/http.js | pino-pretty",
     "start": "npm run http",
-    "test": "env NODE_ENV=test mocha --timeout 100000 --file lib/core/test/setup.js -r ts-node/register src/**/*.spec.ts",
+    "test": "env NODE_ENV=test mocha --timeout 50000 -r ts-node/register src/**/*.spec.ts",
+    "test:scope": "env NODE_ENV=test mocha --timeout 50000 -r ts-node/register",
     "test:dev": "nodemon --watch . --ext ts --exec npm test"
   },
   "keywords": [],

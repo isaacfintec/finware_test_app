@@ -7,6 +7,17 @@ type Migration = { up: () => Promise<void>; down: () => Promise<void> };
 
 class MigrationBuilder {
   operations: Migration[] = [];
+  sync: boolean = false;
+  private static intance: MigrationBuilder;
+
+  private constructor() {}
+
+  static getInstance() {
+    if (!MigrationBuilder.intance) {
+      MigrationBuilder.intance = new MigrationBuilder();
+    }
+    return MigrationBuilder.intance;
+  }
 
   syncTable(migration: Migration) {
     const self = this;
@@ -16,14 +27,15 @@ class MigrationBuilder {
 
   async exec() {
     const self = this;
-    for (const op of self.operations) {
-      await op.up();
-    }
+    if (self.sync) return self;
+    const opsPromise = self.operations.map((op) => op.up());
+    await Promise.allSettled(opsPromise);
+    self.sync = true;
     return self;
   }
 }
 
-const migrationBuilder = new MigrationBuilder();
+const migrationBuilder = MigrationBuilder.getInstance();
 migrationBuilder.syncTable(userMigration);
 migrationBuilder.syncTable(investmentOptMigration);
 migrationBuilder.syncTable(investmentMigration);

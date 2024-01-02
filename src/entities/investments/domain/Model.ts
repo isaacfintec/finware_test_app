@@ -24,9 +24,10 @@ class InvestmentModel extends Model<IInvestment, InvestmentOptionalAtr> {
     const amount = +this.balance;
     this.balance = 0;
     const wallet = await WalletModel.findByPk(this.WalletId);
-    console.log(wallet.balance);
+
     if (wallet) {
-      wallet.balance += amount;
+      wallet.balance = +wallet.balance + amount;
+      console.log({ wallet });
       await wallet.save();
     }
     await this.save();

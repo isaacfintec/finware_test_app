@@ -15,7 +15,7 @@ describe('@InvestmentOpt: API', () => {
 
   before(async () => {
     await SequelizeInstance().init();
-    // await migrationBuilder.exec();
+    await migrationBuilder.exec();
     user = await createMockUser();
     token = user.token;
   });

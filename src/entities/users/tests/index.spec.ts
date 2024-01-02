@@ -14,7 +14,7 @@ describe('@Users: API', () => {
   const userMock = getUserMock();
   before(async () => {
     await SequelizeInstance().init();
-    // await migrationBuilder.exec();
+    await migrationBuilder.exec();
   });
 
   describe('@Create', () => {

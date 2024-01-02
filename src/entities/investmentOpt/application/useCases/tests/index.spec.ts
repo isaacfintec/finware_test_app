@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('@InvestmentOpt: UseCases', () => {
   before(async () => {
     await SequelizeInstance().init();
-    // await migrationBuilder.exec();
+    await migrationBuilder.exec();
   });
 
   it('@Create Many: should create many investment options', async () => {
