@@ -1,9 +1,15 @@
 import { expect } from 'chai';
-import SequelizeInstance from './index';
+import SequelizeInstance from '.';
+import migrationBuilder from './migrations';
 
 describe('@Sequelize', () => {
   before(async () => {
-    await SequelizeInstance().init();
+    try {
+      await SequelizeInstance().init();
+      await migrationBuilder.exec();
+    } catch (error) {
+      console.log({ error });
+    }
   });
 
   it('@Sequelize:Connection: should create a test connection', async () => {

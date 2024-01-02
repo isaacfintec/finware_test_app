@@ -19,8 +19,9 @@ const migration = {
     return result;
   },
 
-  down: (queryInterface) => {
-    /** DON'T use in production mode */
+  down: () => {
+    const sequelize = SequelizeInstance().connect();
+    const queryInterface = sequelize.getQueryInterface();
     if (isTestEnvironment()) {
       return queryInterface.dropTable(Model.tableName);
     }

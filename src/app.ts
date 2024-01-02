@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import logger from 'pino-http';
 
 import './core/helpers/config';
-import './core/db/migrations';
+// import './core/db/migrations';
 
 import router from './router';
 import { isTestEnvironment } from './core/utils';
