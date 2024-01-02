@@ -9,7 +9,7 @@
     "lint": "eslint --ext .ts .",
     "format": "prettier --write \"src/**/*.ts\"",
     "transpile": "npm-run-all clean build",
-    "preversion": "npm-run-all format lint clean build",
+    "preversion": "npm-run-all format lint",
     "postinstall": "npm run transpile",
     "http": "node lib/www/http.js | pino-pretty",
     "start": "npm run http",
