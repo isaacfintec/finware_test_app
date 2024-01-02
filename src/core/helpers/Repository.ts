@@ -1,10 +1,4 @@
-import {
-  Model,
-  ModelStatic,
-  WhereOptions,
-  Attributes,
-  FindOptions,
-} from 'sequelize';
+import { Model, ModelStatic, WhereOptions, Attributes, FindOptions } from 'sequelize';
 import { IRepository } from '../common/Interfaces';
 
 export default class Repository<T extends Model> implements IRepository<T> {
@@ -14,9 +8,7 @@ export default class Repository<T extends Model> implements IRepository<T> {
     this.model = model;
   }
 
-  async create<P extends T['_creationAttributes']>(
-    args: P,
-  ): Promise<T> {
+  async create<P extends T['_creationAttributes']>(args: P): Promise<T> {
     const self = this;
     if (!self.model) self.notModelError();
     const result = await self.model.create(args);
@@ -38,13 +30,11 @@ export default class Repository<T extends Model> implements IRepository<T> {
     return result.length > 0;
   }
 
-  async findOne(options: Partial<Attributes<T>>): Promise<T | null> {
+  async findOne(options?: FindOptions<T>): Promise<T | null> {
     const self = this;
     if (!self.model) self.notModelError();
-    const wereOptions = options as WhereOptions<Attributes<T>>; // Define the search id condition for the model T
-    const result = await self.model.findOne({
-      where: wereOptions,
-    });
+    // const wereOptions = query as WhereOptions<Attributes<T>>; // Define the search id condition for the model T
+    const result = await self.model.findOne({ ...options });
     return result;
   }
 

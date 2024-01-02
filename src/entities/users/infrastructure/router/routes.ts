@@ -1,14 +1,26 @@
-import { createCtrl } from '../controllers';
+import { createCtrl, loginCtrl, userMeCtrl } from '../controllers';
+import userExistMiddleware from '../middlewares/userExist';
 import { createV } from './validators';
 
 const createValidator = createV();
 
-const routes = [
+export const optionalRoutes = [
   {
-    path: '/singup',
+    path: '/signup',
     method: 'post',
-    handlers: [createValidator, createCtrl],
+    handlers: [createValidator, userExistMiddleware, createCtrl],
+  },
+  {
+    path: '/login',
+    method: 'post',
+    handlers: [loginCtrl],
   },
 ];
 
-export default routes;
+export const signRoutes = [
+  {
+    path: '/me',
+    method: 'get',
+    handlers: [userMeCtrl],
+  },
+];

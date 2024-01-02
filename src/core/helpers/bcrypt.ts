@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 
 import { CustomError } from './CustomErros';
 
-
 export function validatePswd(pswd: string, hash: string) {
   const result = compare(pswd, hash);
   const failMessage = 'Unable to process: Credentials could not be verified.';

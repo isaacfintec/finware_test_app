@@ -55,8 +55,9 @@ SequelizeInstance()
       }
       /* eslint-disable */
     }
-  }).catch((error) => {
-      console.error('Error during Sequelize initialization:', error.message);
-      console.error('Additional details:', error.stack);
-      process.exit(1);
+  })
+  .catch((error) => {
+    console.error('Error during Sequelize initialization:', error.message);
+    console.error('Additional details:', error.stack);
+    process.exit(1);
   });

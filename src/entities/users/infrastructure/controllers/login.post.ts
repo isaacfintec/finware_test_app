@@ -10,7 +10,6 @@ const LoginController: TExpressHandler = async (req, reply, next) => {
     const result = await loginUseCase.exec(body);
     reply.status(STATUS_CODES.OK).json(result);
   } catch (error) {
-    console.log(error.message);
     next(error);
   }
 };
