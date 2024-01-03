@@ -25,7 +25,7 @@ export default class Repository<T extends Model> implements IRepository<T> {
   async update<P extends T>(id: unknown, set: Partial<P>): Promise<boolean> {
     const self = this;
     if (!self.model) self.notModelError();
-    const wereOptions = { id } as WhereOptions<Attributes<T>>; // Define the search id condition for the model T
+    const wereOptions = { id } as WhereOptions<Attributes<T>>;
     const result = await this.model.update(set as any, { where: wereOptions });
     return result.length > 0;
   }
@@ -33,7 +33,6 @@ export default class Repository<T extends Model> implements IRepository<T> {
   async findOne(options?: FindOptions<T>): Promise<T | null> {
     const self = this;
     if (!self.model) self.notModelError();
-    // const wereOptions = query as WhereOptions<Attributes<T>>; // Define the search id condition for the model T
     const result = await self.model.findOne({ ...options });
     return result;
   }
