@@ -9,9 +9,7 @@ router.use(/^\/(?!api).*/, (_req, reply, next) => {
     const indexPath = path.join(__dirname, '../../public', 'index.html');
     reply.sendFile(indexPath);
   } catch (error) {
-    console.error({ error });
     next(error);
-    // reply.status(500).json({ error });
   }
 });
 
