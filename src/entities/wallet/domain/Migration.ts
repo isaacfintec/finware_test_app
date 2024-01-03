@@ -4,18 +4,19 @@ import { isTestEnvironment } from '../../../core/utils';
 import Model from './Model';
 
 const migration = {
-  up: () => {
+  up: async () => {
     const tableName = Model.tableName;
     const sequelize = SequelizeInstance().connect();
     const queryInterface = sequelize.getQueryInterface();
-    const result = queryInterface.createTable(tableName, schema);
+    const result = await queryInterface.createTable(tableName, schema);
 
     console.log(`${tableName} table synchronized successfully`);
     return result;
   },
 
-  down: (queryInterface) => {
-    /** DON'T use in production mode */
+  down: () => {
+    const sequelize = SequelizeInstance().connect();
+    const queryInterface = sequelize.getQueryInterface();
     if (isTestEnvironment()) {
       return queryInterface.dropTable(Model.tableName);
     }

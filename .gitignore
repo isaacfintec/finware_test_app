@@ -131,3 +131,4 @@ dist
 
 # ts build
 lib
+.DS_Store

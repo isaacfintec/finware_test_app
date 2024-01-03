@@ -20,13 +20,12 @@ class InvestmentModel extends Model<IInvestment, InvestmentOptionalAtr> {
 
   async liquidate(): Promise<InvestmentModel> {
     this.status = STATUS.Retirado;
-    console.log(this.balance);
     const amount = +this.balance;
     this.balance = 0;
     const wallet = await WalletModel.findByPk(this.WalletId);
-    console.log(wallet.balance);
+
     if (wallet) {
-      wallet.balance += amount;
+      wallet.balance = +wallet.balance + amount;
       await wallet.save();
     }
     await this.save();

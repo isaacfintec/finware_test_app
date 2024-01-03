@@ -15,7 +15,6 @@ npm-debug.log
 # Vercel
 vercel.json
 .vercel
-public
 
 # Files
 *.xls

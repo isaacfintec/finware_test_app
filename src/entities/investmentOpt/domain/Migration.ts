@@ -9,7 +9,7 @@ const migration = {
     const tableName = Model.tableName;
     const sequelize = SequelizeInstance().connect();
     const queryInterface = sequelize.getQueryInterface();
-    const result = queryInterface.createTable(tableName, schema);
+    const result = await queryInterface.createTable(tableName, schema);
     const spamHandler = new Spam();
     const spam = spamHandler.getSpam();
 
@@ -19,8 +19,9 @@ const migration = {
     return result;
   },
 
-  down: (queryInterface) => {
-    /** DON'T use in production mode */
+  down: () => {
+    const sequelize = SequelizeInstance().connect();
+    const queryInterface = sequelize.getQueryInterface();
     if (isTestEnvironment()) {
       return queryInterface.dropTable(Model.tableName);
     }

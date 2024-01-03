@@ -2,7 +2,8 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 
 import app from '../../../app';
-import SequelizeInstance from '../../../core/db/index';
+import SequelizeInstance from '../../../core/db';
+import migrationBuilder from '../../../core/db/migrations';
 import { failMock, getUserMock } from './mocks';
 
 chai.use(chaiHttp);
@@ -13,6 +14,7 @@ describe('@Users: API', () => {
   const userMock = getUserMock();
   before(async () => {
     await SequelizeInstance().init();
+    await migrationBuilder.exec();
   });
 
   describe('@Create', () => {
