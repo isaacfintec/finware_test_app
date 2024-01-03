@@ -110,7 +110,6 @@ describe('@Investment: API', () => {
       const { body } = response;
       const { wallets } = body;
       const [currentWallet] = wallets;
-      console.log(currentWallet);
       expect(currentWallet.balance).to.be.equal(450);
     });
   });
@@ -141,7 +140,6 @@ describe('@Investment: API', () => {
       const { body } = response;
       const { wallets } = body;
       const [currentWallet] = wallets;
-      console.log(currentWallet);
       expect(currentWallet.balance).to.be.equal(700);
     });
   });
