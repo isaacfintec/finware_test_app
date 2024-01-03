@@ -13,7 +13,8 @@
     "postinstall": "npm run transpile",
     "http": "node lib/www/http.js | pino-pretty",
     "start": "npm run http",
-    "test": "env NODE_ENV=test mocha -r ts-node/register src/**/*.spec.ts",
+    "test": "env NODE_ENV=test mocha --timeout 50000 -r ts-node/register src/**/*.spec.ts",
+    "test:scope": "env NODE_ENV=test mocha --timeout 50000 -r ts-node/register",
     "test:dev": "nodemon --watch . --ext ts --exec npm test"
   },
   "keywords": [],
@@ -23,7 +24,6 @@
     "node": "18"
   },
   "devDependencies": {
-    "@faker-js/faker": "8.3.1",
     "@types/chai": "^4.3.11",
     "@types/express": "^4.17.21",
     "@types/mocha": "^10.0.6",
@@ -44,6 +44,7 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
+    "@faker-js/faker": "8.3.1",
     "bcrypt": "5.1.1",
     "cookie-parser": "1.4.6",
     "cors": "2.8.5",

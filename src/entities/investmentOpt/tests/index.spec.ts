@@ -2,7 +2,8 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 
 import app from '../../../app';
-import SequelizeInstance from '../../../core/db/index';
+import SequelizeInstance from '../../../core/db';
+import migrationBuilder from '../../../core/db/migrations';
 import { createMockUser } from '../../users/tests/mocks';
 
 chai.use(chaiHttp);
@@ -14,6 +15,7 @@ describe('@InvestmentOpt: API', () => {
 
   before(async () => {
     await SequelizeInstance().init();
+    await migrationBuilder.exec();
     user = await createMockUser();
     token = user.token;
   });

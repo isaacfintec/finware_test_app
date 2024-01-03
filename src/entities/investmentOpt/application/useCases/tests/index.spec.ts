@@ -1,7 +1,8 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 
-import SequelizeInstance from '../../../../../core/db/index';
+import SequelizeInstance from '../../../../../core/db';
+import migrationBuilder from '../../../../../core/db/migrations';
 import { InvestmentOptAtr } from '../../../domain/Interface';
 import SpamUseCase from '../Spam';
 
@@ -10,6 +11,7 @@ chai.use(chaiHttp);
 describe('@InvestmentOpt: UseCases', () => {
   before(async () => {
     await SequelizeInstance().init();
+    await migrationBuilder.exec();
   });
 
   it('@Create Many: should create many investment options', async () => {

@@ -8,7 +8,7 @@ export default async function getToken(key, value) {
   })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('4hrs')
+    .setExpirationTime('8hrs')
     .sign(secret);
   return token;
 }
